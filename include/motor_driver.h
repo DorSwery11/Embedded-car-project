@@ -17,6 +17,8 @@ void motor_driver_init(void);
  */
 void motor_driver_forwardA(void);
 void motor_driver_forwardB(void);
+void motor_driver_backwardA(void);
+void motor_driver_backwardB(void);
 
 
 /**

@@ -79,7 +79,7 @@ esp_err_t pwm_hal_set_duty_percent(pwm_hal_output_t output,uint8_t percent){
 
     ledc_channel_t channel; // Current channel
 
-    switch (output)  // protects HAL -> channel gets output (no directlly for HAL can be safe)
+    switch (output)  // protects HAL -> channel gets output (no directlly , for HAL can be safe)
     {
     case PWM_HAL_OUTPUT_A:
         channel = PWM_CHANNEL_A;
@@ -92,9 +92,8 @@ esp_err_t pwm_hal_set_duty_percent(pwm_hal_output_t output,uint8_t percent){
         return ESP_ERR_INVALID_ARG;
     }
 
-        
-    uint32_t duty =
-        ((uint32_t)percent * PWM_MAX_DUTY) / 100U;
+        // PWM DUTY CYCLE CALCULATION
+    uint32_t duty = ((uint32_t)percent * PWM_MAX_DUTY) / 100U;
 
     // Write the new duty value
     esp_err_t result = ledc_set_duty(PWM_SPEED_MODE,channel,duty);

@@ -28,8 +28,8 @@ void motor_driver_init(void)
     if(init != ESP_OK)
         return;
     gpio_hal_set(PIN_STBY);  // Standby only HIGH if init successed 
-    pwm_hal_set_duty_percent(PWM_HAL_OUTPUT_A,30);
-    pwm_hal_set_duty_percent(PWM_HAL_OUTPUT_B,100);
+    pwm_hal_set_duty_percent(PWM_HAL_OUTPUT_A,80);
+    pwm_hal_set_duty_percent(PWM_HAL_OUTPUT_B,80);
 
 
 }
@@ -45,6 +45,18 @@ void motor_driver_forwardB(void)
     // SET DIRECTION B - SIDE
     gpio_hal_clear(PIN_BIN1);   // DIRECTION SIDE B        BIN1 = LOW , BIN2 = HIGH   -->> FORWARD B
     gpio_hal_set(PIN_BIN2); // DIRECTION SIDE B
+}
+void motor_driver_backwardA(void)
+{
+    // SET DIRECTION A - SIDE
+    gpio_hal_clear(PIN_AIN1);   // DIRECTION SIDE A        AIN1 = LOW , AIN2 = HIGH   -->> BACKWARD A
+    gpio_hal_set(PIN_AIN2); // DIRECTION SIDE A
+}
+void motor_driver_backwardB(void)
+{
+    // SET DIRECTION B - SIDE
+    gpio_hal_set(PIN_BIN1);   // DIRECTION SIDE B        BIN1 = HIGH , BIN2 = LOW   -->> BACKWARD B
+    gpio_hal_clear(PIN_BIN2); // DIRECTION SIDE B
 }
 void motor_driver_stop(void)
 {

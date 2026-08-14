@@ -29,7 +29,7 @@ void app_main(void){
     //     NULL );
     motor_driver_forwardA();
     vTaskDelay(pdMS_TO_TICKS(100));
-    motor_driver_forwardB();
+    motor_driver_backwardB();
     while(1){
        vTaskDelay(pdMS_TO_TICKS(40));
     }

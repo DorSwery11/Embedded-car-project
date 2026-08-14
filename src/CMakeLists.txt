@@ -3,6 +3,7 @@ idf_component_register(
         "main.c"
         "motor_driver.c"
         "gpio_hal.c"
+        "pwm_hal.c"
     INCLUDE_DIRS
         "../include"
     REQUIRES

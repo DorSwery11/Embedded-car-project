@@ -1,13 +1,15 @@
 #pragma once
 
 #include <stdint.h>
+#include "esp_err.h"
+
 
 /**
  * @brief Initialize the motor driver GPIOs and PWM hardware.
  *
  * This function must be called once before using the motor driver.
  */
-void motor_driver_init(void);
+esp_err_t motor_driver_init(void);
 
 /**
  * @brief Drive both motors forward.

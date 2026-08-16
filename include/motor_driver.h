@@ -3,6 +3,18 @@
 #include <stdint.h>
 #include "esp_err.h"
 
+typedef enum
+{
+    MOTOR_SIDE_LEFT = 0,
+    MOTOR_SIDE_RIGHT
+} motor_side_t;
+
+typedef enum
+{
+    MOTOR_DIRECTION_FORWARD = 0,
+    MOTOR_DIRECTION_BACKWARD
+} motor_direction_t;
+
 
 /**
  * @brief Initialize the motor driver GPIOs and PWM hardware.
@@ -11,16 +23,9 @@
  */
 esp_err_t motor_driver_init(void);
 
-/**
- * @brief Drive both motors forward.
- *
- * This function only sets the motor direction.
- * Speed is controlled separately by motor_driver_set_speed_percent().
- */
-void motor_driver_forwardA(void);
-void motor_driver_forwardB(void);
-void motor_driver_backwardA(void);
-void motor_driver_backwardB(void);
+
+esp_err_t motor_driver_set_direction(motor_side_t side,motor_direction_t direction);
+
 
 
 /**

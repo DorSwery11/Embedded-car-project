@@ -40,30 +40,35 @@ esp_err_t motor_driver_init(void)
     return ESP_OK;
 }
    
-void motor_driver_forwardA(void)
+// static directions functions 
+static void motor_driver_forward_A(void)
 {
     // SET DIRECTION A - SIDE
     gpio_hal_set(PIN_AIN1);   // DIRECTION SIDE A        AIN1 = HIGH , AIN2 = LOW   -->> FORWARD A
     gpio_hal_clear(PIN_AIN2); // DIRECTION SIDE A
 }
-void motor_driver_forwardB(void)
+static void motor_driver_forward_B(void)
 {
     // SET DIRECTION B - SIDE
     gpio_hal_clear(PIN_BIN1);   // DIRECTION SIDE B        BIN1 = LOW , BIN2 = HIGH   -->> FORWARD B
     gpio_hal_set(PIN_BIN2); // DIRECTION SIDE B
 }
-void motor_driver_backwardA(void)
+static void motor_driver_backward_A(void)
 {
     // SET DIRECTION A - SIDE
     gpio_hal_clear(PIN_AIN1);   // DIRECTION SIDE A        AIN1 = LOW , AIN2 = HIGH   -->> BACKWARD A
     gpio_hal_set(PIN_AIN2); // DIRECTION SIDE A
 }
-void motor_driver_backwardB(void)
+static void motor_driver_backward_B(void)
 {
     // SET DIRECTION B - SIDE
     gpio_hal_set(PIN_BIN1);   // DIRECTION SIDE B        BIN1 = HIGH , BIN2 = LOW   -->> BACKWARD B
     gpio_hal_clear(PIN_BIN2); // DIRECTION SIDE B
 }
+
+esp_err_t motor_driver_set_direction(motor_directiom side,int direction)
+
+
 void motor_driver_stop(void)
 {
 

@@ -1,6 +1,7 @@
 #include "pins.h"
 #include "gpio_hal.h"
 #include "pwm_hal.h"
+#include "motor_driver.h"
 
 static int initialized; 
 
@@ -41,40 +42,77 @@ esp_err_t motor_driver_init(void)
 }
    
 // static directions functions 
-static void motor_driver_forward_A(void)
+
+
+// LEFT SIDE 
+static void motor_driver_forward_a(void)
 {
     // SET DIRECTION A - SIDE
     gpio_hal_set(PIN_AIN1);   // DIRECTION SIDE A        AIN1 = HIGH , AIN2 = LOW   -->> FORWARD A
     gpio_hal_clear(PIN_AIN2); // DIRECTION SIDE A
 }
-static void motor_driver_forward_B(void)
-{
-    // SET DIRECTION B - SIDE
-    gpio_hal_clear(PIN_BIN1);   // DIRECTION SIDE B        BIN1 = LOW , BIN2 = HIGH   -->> FORWARD B
-    gpio_hal_set(PIN_BIN2); // DIRECTION SIDE B
-}
-static void motor_driver_backward_A(void)
+static void motor_driver_backward_a(void)
 {
     // SET DIRECTION A - SIDE
     gpio_hal_clear(PIN_AIN1);   // DIRECTION SIDE A        AIN1 = LOW , AIN2 = HIGH   -->> BACKWARD A
     gpio_hal_set(PIN_AIN2); // DIRECTION SIDE A
 }
-static void motor_driver_backward_B(void)
+
+
+//RIGHT SIDE
+static void motor_driver_forward_b(void)
+{
+    // SET DIRECTION B - SIDE
+    gpio_hal_clear(PIN_BIN1);   // DIRECTION SIDE B        BIN1 = LOW , BIN2 = HIGH   -->> FORWARD B
+    gpio_hal_set(PIN_BIN2); // DIRECTION SIDE B
+}
+
+static void motor_driver_backward_b(void)
 {
     // SET DIRECTION B - SIDE
     gpio_hal_set(PIN_BIN1);   // DIRECTION SIDE B        BIN1 = HIGH , BIN2 = LOW   -->> BACKWARD B
     gpio_hal_clear(PIN_BIN2); // DIRECTION SIDE B
 }
 
-esp_err_t motor_driver_set_direction(motor_directiom side,int direction)
 
 
-void motor_driver_stop(void)
+esp_err_t motor_driver_set_direction(motor_side_t side,motor_direction_t direction)
+{
+    //input validation
+    if(!initialized)
+        return ESP_ERR_INVALID_STATE;
+    if(side != MOTOR_SIDE_LEFT && side != MOTOR_SIDE_RIGHT)
+        return ESP_ERR_INVALID_ARG;
+    if(direction != MOTOR_DIRECTION_BACKWARD && direction != MOTOR_DIRECTION_FORWARD)
+        return ESP_ERR_INVALID_ARG;
+
+
+   switch(side)
+   {
+        case MOTOR_SIDE_LEFT:
+            if(direction == MOTOR_DIRECTION_BACKWARD)
+                motor_driver_backward_a();
+            else
+                motor_driver_forward_a();
+            break;
+        case MOTOR_SIDE_RIGHT:
+            if(direction == MOTOR_DIRECTION_BACKWARD)
+                motor_driver_backward_b();
+            else
+                motor_driver_forward_b();
+            break;
+   }
+
+   return ESP_OK;
+}
+
+
+void motor_driver_set_speed_percent(uint8_t percent)
 {
 
 }
 
-void motor_driver_set_speed_percent(uint8_t percent)
+void motor_driver_stop(void)
 {
 
 }

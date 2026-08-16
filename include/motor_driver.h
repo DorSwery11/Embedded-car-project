@@ -27,17 +27,17 @@ esp_err_t motor_driver_init(void);
 esp_err_t motor_driver_set_direction(motor_side_t side,motor_direction_t direction);
 
 
-
-/**
- * @brief Stop both motors.
- *
- * This function disables motor movement.
- */
-void motor_driver_stop(void);
-
 /**
  * @brief Set speed for both motors in percent.
  *
  * @param percent Speed percentage from 0 to 100.
  */
 esp_err_t motor_driver_set_speed_percent(motor_side_t side, uint8_t percent);
+
+
+/**
+ * @brief Stop both motors.
+ *
+ * This function disables motor movement.
+ */
+esp_err_t motor_driver_stop(void);

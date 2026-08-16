@@ -132,7 +132,20 @@ esp_err_t motor_driver_set_speed_percent(motor_side_t side, uint8_t percent)
     return result;
 }
 
-void motor_driver_stop(void)
+esp_err_t motor_driver_stop(void)
 {
+    //input validation
+     if(!initialized)
+        return ESP_ERR_INVALID_STATE;
 
+    esp_err_t result_left = ESP_ERR_INVALID_ARG;
+    esp_err_t result_right = ESP_ERR_INVALID_ARG;
+
+    result_left = motor_driver_set_speed_percent(MOTOR_SIDE_LEFT,0);
+    result_right = motor_driver_set_speed_percent(MOTOR_SIDE_RIGHT,0);
+    if(result_left == ESP_OK && result_right == ESP_OK)
+        return ESP_OK;
+    else if(result_left != ESP_OK)
+        return result_left;
+    return result_right;
 }

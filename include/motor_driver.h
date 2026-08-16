@@ -40,4 +40,4 @@ void motor_driver_stop(void);
  *
  * @param percent Speed percentage from 0 to 100.
  */
-void motor_driver_set_speed_percent(uint8_t percent);
+esp_err_t motor_driver_set_speed_percent(motor_side_t side, uint8_t percent);

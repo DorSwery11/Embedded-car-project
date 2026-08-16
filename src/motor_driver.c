@@ -107,9 +107,29 @@ esp_err_t motor_driver_set_direction(motor_side_t side,motor_direction_t directi
 }
 
 
-void motor_driver_set_speed_percent(uint8_t percent)
+esp_err_t motor_driver_set_speed_percent(motor_side_t side, uint8_t percent)
 {
+    //input validation
+     if(!initialized)
+        return ESP_ERR_INVALID_STATE;
 
+    if(side != MOTOR_SIDE_LEFT && side != MOTOR_SIDE_RIGHT)
+        return ESP_ERR_INVALID_ARG;
+    
+    if(percent > 100)
+        return ESP_ERR_INVALID_ARG;
+
+    esp_err_t result = ESP_ERR_INVALID_ARG;
+    switch (side)
+    {
+    case MOTOR_SIDE_LEFT:
+        result = pwm_hal_set_duty_percent(PWM_HAL_OUTPUT_A,percent);
+        break;
+    case MOTOR_SIDE_RIGHT:
+        result = pwm_hal_set_duty_percent(PWM_HAL_OUTPUT_B,percent);
+        break;
+    }
+    return result;
 }
 
 void motor_driver_stop(void)

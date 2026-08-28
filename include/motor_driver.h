@@ -28,8 +28,9 @@ esp_err_t motor_driver_set_direction(motor_side_t side,motor_direction_t directi
 
 
 /**
- * @brief Set speed for both motors in percent.
+ * @brief Set the speed of the selected motor side in percent.
  *
+ * @param side Motor side to control.
  * @param percent Speed percentage from 0 to 100.
  */
 esp_err_t motor_driver_set_speed_percent(motor_side_t side, uint8_t percent);

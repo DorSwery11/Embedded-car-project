@@ -1,7 +1,6 @@
 #include "pwm_hal.h"
 #include "driver/ledc.h"
 #include "pins.h"
-#include "driver/ledc.h"
 
 
 //pwm frequency && Resolution
@@ -111,6 +110,5 @@ esp_err_t pwm_hal_set_duty_percent(pwm_hal_output_t output,uint8_t percent){
 
 
 }
-
 
 

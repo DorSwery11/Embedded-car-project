@@ -30,11 +30,11 @@ void app_main(void){
     //     NULL );
     motor_driver_set_direction(MOTOR_SIDE_LEFT,MOTOR_DIRECTION_FORWARD);
     motor_driver_set_direction(MOTOR_SIDE_RIGHT,MOTOR_DIRECTION_FORWARD);
-    motor_driver_set_speed_percent(MOTOR_SIDE_LEFT,40);
+    motor_driver_set_speed_percent(MOTOR_SIDE_LEFT,80);
     vTaskDelay(pdMS_TO_TICKS(100));
-    motor_driver_set_speed_percent(MOTOR_SIDE_RIGHT,40);
+    motor_driver_set_speed_percent(MOTOR_SIDE_RIGHT,80);
     vTaskDelay(pdMS_TO_TICKS(6000));
-    motor_driver_stop();
+    //motor_driver_stop();
 
     while(1){
        vTaskDelay(pdMS_TO_TICKS(40));
